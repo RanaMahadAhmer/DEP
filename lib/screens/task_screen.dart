@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:to_do_list_app/screens/home_screen.dart';
 
 import '../data_and_design/data.dart';
@@ -52,6 +53,41 @@ class _TaskScreenState extends State<TaskScreen> {
     );
   }
 
+  no() async {
+    DateTime? dateTime = await showOmniDateTimePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(
+        const Duration(days: 30),
+      ),
+      is24HourMode: false,
+      isShowSeconds: false,
+      minutesInterval: 1,
+      secondsInterval: 1,
+      borderRadius: const BorderRadius.all(Radius.circular(10)),
+      constraints: const BoxConstraints(
+        maxWidth: 350,
+        maxHeight: 650,
+      ),
+      transitionBuilder: (context, anim1, anim2, child) {
+        return FadeTransition(
+          opacity: anim1.drive(
+            Tween(
+              begin: 0,
+              end: 1,
+            ),
+          ),
+          child: child,
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 200),
+      // barrierDismissible: true,
+    );
+
+    return dateTime;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,38 +131,49 @@ class _TaskScreenState extends State<TaskScreen> {
                       },
                     ),
                     _createLabel(txt: "Category"),
-                    Container(
-                      decoration: decoration,
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: DropdownMenu<String>(
-                        leadingIcon: createCategoryMark(
-                            taskCategory: newTask["category"] == ""
+                    Row(
+                      children: [
+                        Container(
+                          decoration: decoration,
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          child: DropdownMenu<String>(
+                            leadingIcon: createCategoryMark(
+                                taskCategory: newTask["category"] == ""
+                                    ? categories.first
+                                    : newTask["category"]),
+                            enableSearch: false,
+                            initialSelection: newTask["category"] == ""
                                 ? categories.first
-                                : newTask["category"]),
-                        enableSearch: false,
-                        initialSelection: newTask["category"] == ""
-                            ? categories.first
-                            : newTask["category"],
-                        onSelected: (String? value) {
-                          setState(
-                            () {
-                              newTask["category"] = value!;
+                                : newTask["category"],
+                            onSelected: (String? value) {
+                              setState(
+                                () {
+                                  newTask["category"] = value!;
+                                },
+                              );
                             },
-                          );
-                        },
-                        dropdownMenuEntries:
-                            categories.map<DropdownMenuEntry<String>>(
-                          (String value) {
-                            return DropdownMenuEntry<String>(
-                              leadingIcon: createCategoryMark(
-                                taskCategory: value,
-                              ),
-                              value: value,
-                              label: value,
-                            );
+                            dropdownMenuEntries:
+                                categories.map<DropdownMenuEntry<String>>(
+                              (String value) {
+                                return DropdownMenuEntry<String>(
+                                  leadingIcon: createCategoryMark(
+                                    taskCategory: value,
+                                  ),
+                                  value: value,
+                                  label: value,
+                                );
+                              },
+                            ).toList(),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () async {
+                            DateTime dateTime = await no();
+                            print(dateTime);
                           },
-                        ).toList(),
-                      ),
+                          icon: const Icon(Icons.abc),
+                        ),
+                      ],
                     ),
                     _createLabel(txt: "Detail"),
                     _createInputField(
