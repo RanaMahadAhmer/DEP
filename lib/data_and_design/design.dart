@@ -15,12 +15,20 @@ var decoration = BoxDecoration(
   ],
 );
 
-FloatingActionButton createButton({required VoidCallback fun}) {
+FloatingActionButton createButton({String? txt, required VoidCallback fun}) {
   return FloatingActionButton(
     backgroundColor: Colors.black12,
     foregroundColor: Colors.black,
     hoverElevation: 10,
     onPressed: fun,
-    child: const Icon(Icons.add),
+    child: (txt != null) ? Text(txt) : const Icon(Icons.add),
+  );
+}
+
+Icon createCategoryMark({required Color color}) {
+  return Icon(
+    size: 20,
+    Icons.bookmark,
+    color: color,
   );
 }

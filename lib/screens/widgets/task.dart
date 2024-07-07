@@ -45,13 +45,10 @@ class _TaskState extends State<Task> {
                             style: const TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w600),
                           ),
-                          Container(
-                            height: 10,
-                            width: 10,
-                            margin: const EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                                color: colors[widget.task["category"]],
-                                shape: BoxShape.circle),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: createCategoryMark(
+                                color: colors[widget.task["category"]]),
                           ),
                         ],
                       ),

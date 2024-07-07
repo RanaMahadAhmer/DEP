@@ -20,12 +20,27 @@ class _TaskScreenState extends State<TaskScreen> {
   // String selectedCategory = categories.first;
   late Map newTask = widget.oldTask;
 
+  _createLabel({required String txt}) {
+    return Text(
+      txt,
+      style:
+          const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, shadows: [
+        Shadow(
+          blurRadius: 20,
+          color: Colors.black,
+          offset: Offset(4, 4),
+        )
+      ]),
+    );
+  }
+
   _createInputField(
       {required String text,
       bool long = false,
       required Function(String) fun}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: decoration,
       child: TextField(
         controller: TextEditingController(text: text),
@@ -54,50 +69,51 @@ class _TaskScreenState extends State<TaskScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Title",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
+                    _createLabel(txt: "Title"),
                     _createInputField(
                       text: newTask["title"],
                       fun: (value) {
                         newTask["title"] = value;
                       },
                     ),
-                    DropdownMenu<String>(
-                      enableSearch: false,
-                      initialSelection: newTask["category"] == ""
-                          ? categories.first
-                          : newTask["category"],
-                      onSelected: (String? value) {
-                        setState(
-                          () {
-                            newTask["category"] = value!;
-                          },
-                        );
-                      },
-                      dropdownMenuEntries:
-                          categories.map<DropdownMenuEntry<String>>(
-                        (String value) {
-                          return DropdownMenuEntry<String>(
-                            leadingIcon: Container(
-                              height: 8,
-                              width: 8,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle, color: colors[value]),
-                            ),
-                            value: value,
-                            label: value,
+                    _createLabel(txt: "Category"),
+                    Container(
+                      decoration: decoration,
+                      // padding: EdgeInsets.symmetric(horizontal: 10),
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      child: DropdownMenu<String>(
+                        leadingIcon: Icon(
+                          size: 20,
+                          Icons.bookmark,
+                          color: colors[newTask["category"] == ""
+                              ? categories.first
+                              : newTask["category"]],
+                        ),
+                        enableSearch: false,
+                        initialSelection: newTask["category"] == ""
+                            ? categories.first
+                            : newTask["category"],
+                        onSelected: (String? value) {
+                          setState(
+                            () {
+                              newTask["category"] = value!;
+                            },
                           );
                         },
-                      ).toList(),
+                        dropdownMenuEntries:
+                            categories.map<DropdownMenuEntry<String>>(
+                          (String value) {
+                            return DropdownMenuEntry<String>(
+                              leadingIcon: createCategoryMark(
+                                  color: colors[colors[value]]),
+                              value: value,
+                              label: value,
+                            );
+                          },
+                        ).toList(),
+                      ),
                     ),
-                    const Text(
-                      "Detail",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
+                    _createLabel(txt: "Detail"),
                     _createInputField(
                         text: newTask["detail"],
                         long: true,
@@ -114,7 +130,9 @@ class _TaskScreenState extends State<TaskScreen> {
           );
         },
       ),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButton: createButton(
+        txt: "Save",
         fun: () {
           if (newTask["title"].isNotEmpty) {
             if (tasks.contains(widget.oldTask)) {
