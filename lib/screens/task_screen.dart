@@ -56,7 +56,25 @@ class _TaskScreenState extends State<TaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("New Task"),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text("New Task"),
+            IconButton(
+              onPressed: () {
+                if (tasks.contains(widget.oldTask)) {
+                  tasks.remove(widget.oldTask);
+                }
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.delete_forever_outlined,
+                color: Colors.black54,
+              ),
+              iconSize: 30,
+            ),
+          ],
+        ),
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -79,16 +97,12 @@ class _TaskScreenState extends State<TaskScreen> {
                     _createLabel(txt: "Category"),
                     Container(
                       decoration: decoration,
-                      // padding: EdgeInsets.symmetric(horizontal: 10),
                       margin: const EdgeInsets.symmetric(vertical: 8),
                       child: DropdownMenu<String>(
-                        leadingIcon: Icon(
-                          size: 20,
-                          Icons.bookmark,
-                          color: colors[newTask["category"] == ""
-                              ? categories.first
-                              : newTask["category"]],
-                        ),
+                        leadingIcon: createCategoryMark(
+                            taskCategory: newTask["category"] == ""
+                                ? categories.first
+                                : newTask["category"]),
                         enableSearch: false,
                         initialSelection: newTask["category"] == ""
                             ? categories.first
@@ -105,7 +119,8 @@ class _TaskScreenState extends State<TaskScreen> {
                           (String value) {
                             return DropdownMenuEntry<String>(
                               leadingIcon: createCategoryMark(
-                                  color: colors[colors[value]]),
+                                taskCategory: value,
+                              ),
                               value: value,
                               label: value,
                             );

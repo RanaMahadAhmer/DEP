@@ -48,7 +48,7 @@ class _TaskState extends State<Task> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             child: createCategoryMark(
-                                color: colors[widget.task["category"]]),
+                                taskCategory: widget.task["category"]),
                           ),
                         ],
                       ),

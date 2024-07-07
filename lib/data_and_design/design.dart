@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import 'data.dart';
+
 var decoration = BoxDecoration(
   color: const Color.fromARGB(255, 252, 245, 253),
   border: Border.all(color: Colors.black, width: 0.2),
@@ -25,10 +27,10 @@ FloatingActionButton createButton({String? txt, required VoidCallback fun}) {
   );
 }
 
-Icon createCategoryMark({required Color color}) {
+Icon createCategoryMark({required String taskCategory}) {
   return Icon(
     size: 20,
     Icons.bookmark,
-    color: color,
+    color: colors[taskCategory],
   );
 }

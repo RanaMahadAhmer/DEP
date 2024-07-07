@@ -2,12 +2,33 @@ import 'package:flutter/material.dart';
 
 List tasks = [
   {
-    "title": "Wash Clothes",
-    "detail":
-        "You Stinkujgrkbdfngdrklgnjerkjghbkuyhjvkblnbjkvhcgvjbknlbjkvhcgkhvjbklnlbj;vhlgjc",
-    "category": "Lifestyle"
+    "title": "Demo Task",
+    "detail": "Delete Me Or Update Me",
+    "category": "Learning"
   }
 ];
 
-List<String> categories = ["Lifestyle", "Shopping"];
-Map colors = {"Lifestyle": Colors.green, "Shopping": Colors.red};
+List<String> categories = [
+  "Daily",
+  "Work",
+  "Personal",
+  "Family",
+  "Health",
+  "Financial",
+  "Social"
+      "Travel",
+  "Learning",
+  "Shopping"
+];
+Map colors = {
+  "Daily": Colors.deepPurpleAccent,
+  "Work": Colors.blue,
+  "Personal": Colors.purple,
+  "Family": Colors.green,
+  "Health": Colors.red,
+  "Financial": Colors.yellow,
+  "Social": Colors.pink,
+  "Travel": Colors.orange,
+  "Learning": Colors.teal,
+  "Shopping": Colors.brown
+};
