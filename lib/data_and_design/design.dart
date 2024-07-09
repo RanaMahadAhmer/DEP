@@ -6,7 +6,7 @@ import 'data.dart';
 
 var decoration = BoxDecoration(
   color: const Color.fromARGB(255, 252, 245, 253),
-  border: Border.all(color: Colors.black, width: 0.2),
+  border: Border.all(color: Colors.black, width: 0.4),
   borderRadius: const BorderRadius.all(Radius.circular(8)),
   boxShadow: const [
     BoxShadow(
@@ -15,6 +15,10 @@ var decoration = BoxDecoration(
         offset: Offset(8, 8),
         blurRadius: 5),
   ],
+);
+
+var disabledInternalBorder = const UnderlineInputBorder(
+  borderSide: BorderSide(color: Colors.transparent),
 );
 
 FloatingActionButton createButton({String? txt, required VoidCallback fun}) {

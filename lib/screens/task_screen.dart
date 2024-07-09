@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
-import 'package:to_do_list_app/screens/home_screen.dart';
+
+import 'package:to_do_list_app/screens/widgets/menu.dart';
 
 import '../data_and_design/data.dart';
 import '../data_and_design/design.dart';
@@ -44,6 +46,10 @@ class _TaskScreenState extends State<TaskScreen> {
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: decoration,
       child: TextField(
+        decoration: InputDecoration(
+          enabledBorder: disabledInternalBorder,
+          focusedBorder: disabledInternalBorder,
+        ),
         controller: TextEditingController(text: text),
         style: const TextStyle(color: Colors.black87),
         onChanged: fun,
@@ -133,45 +139,45 @@ class _TaskScreenState extends State<TaskScreen> {
                     _createLabel(txt: "Category"),
                     Row(
                       children: [
-                        Container(
-                          decoration: decoration,
-                          margin: const EdgeInsets.symmetric(vertical: 8),
-                          child: DropdownMenu<String>(
-                            leadingIcon: createCategoryMark(
-                                taskCategory: newTask["category"] == ""
-                                    ? categories.first
-                                    : newTask["category"]),
-                            enableSearch: false,
-                            initialSelection: newTask["category"] == ""
-                                ? categories.first
-                                : newTask["category"],
-                            onSelected: (String? value) {
-                              setState(
-                                () {
-                                  newTask["category"] = value!;
+                        Expanded(
+                          flex: 12,
+                          child: Container(
+                            decoration: decoration,
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            child: FittedBox(
+                              child: Menu(
+                                task: newTask,
+                                fun: (String? value) {
+                                  setState(
+                                    () {
+                                      newTask["category"] = value!;
+                                    },
+                                  );
                                 },
-                              );
-                            },
-                            dropdownMenuEntries:
-                                categories.map<DropdownMenuEntry<String>>(
-                              (String value) {
-                                return DropdownMenuEntry<String>(
-                                  leadingIcon: createCategoryMark(
-                                    taskCategory: value,
-                                  ),
-                                  value: value,
-                                  label: value,
-                                );
-                              },
-                            ).toList(),
+                              ),
+                            ),
                           ),
                         ),
-                        IconButton(
-                          onPressed: () async {
-                            DateTime dateTime = await no();
-                            print(dateTime);
-                          },
-                          icon: const Icon(Icons.abc),
+                        const Expanded(
+                          flex: 1,
+                          child: ColoredBox(color: Colors.transparent),
+                        ),
+                        Expanded(
+                          flex: 12,
+                          child: Container(
+                            decoration: decoration,
+                            child: GestureDetector(
+                              onTap: () async {
+                                DateTime dateTime = await no();
+                                if (kDebugMode) {
+                                  print(dateTime);
+                                }
+                              },
+                              child: const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  child: Text("Select Date")),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -192,7 +198,6 @@ class _TaskScreenState extends State<TaskScreen> {
           );
         },
       ),
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButton: createButton(
         txt: "Save",
         fun: () {
