@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
@@ -20,21 +22,12 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  // String selectedCategory = categories.first;
-  late Map newTask = widget.oldTask;
+  late Map newTask;
 
-  _createLabel({required String txt}) {
-    return Text(
-      txt,
-      style:
-          const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, shadows: [
-        Shadow(
-          blurRadius: 20,
-          color: Colors.black,
-          offset: Offset(4, 4),
-        )
-      ]),
-    );
+  @override
+  initState() {
+    super.initState();
+    newTask = {...widget.oldTask};
   }
 
   _createInputField(
@@ -59,9 +52,12 @@ class _TaskScreenState extends State<TaskScreen> {
     );
   }
 
-  no() async {
+  getReminder() async {
     DateTime? dateTime = await showOmniDateTimePicker(
       context: context,
+      theme: ThemeData(
+          buttonTheme: const ButtonThemeData(
+              buttonColor: Colors.black12, textTheme: ButtonTextTheme.primary)),
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(
@@ -72,10 +68,6 @@ class _TaskScreenState extends State<TaskScreen> {
       minutesInterval: 1,
       secondsInterval: 1,
       borderRadius: const BorderRadius.all(Radius.circular(10)),
-      constraints: const BoxConstraints(
-        maxWidth: 350,
-        maxHeight: 650,
-      ),
       transitionBuilder: (context, anim1, anim2, child) {
         return FadeTransition(
           opacity: anim1.drive(
@@ -88,7 +80,6 @@ class _TaskScreenState extends State<TaskScreen> {
         );
       },
       transitionDuration: const Duration(milliseconds: 200),
-      // barrierDismissible: true,
     );
 
     return dateTime;
@@ -101,13 +92,16 @@ class _TaskScreenState extends State<TaskScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("New Task"),
+            shadowedText(txt: "New Task", size: 22, weight: FontWeight.w600),
             IconButton(
               onPressed: () {
-                if (tasks.contains(widget.oldTask)) {
-                  tasks.remove(widget.oldTask);
+                if (newTask["title"].isNotEmpty ||
+                    newTask["detail"].isNotEmpty) {
+                  if (tasks.contains(widget.oldTask)) {
+                    tasks.remove(widget.oldTask);
+                  }
+                  Navigator.pop(context);
                 }
-                Navigator.pop(context);
               },
               icon: const Icon(
                 Icons.delete_forever_outlined,
@@ -129,59 +123,79 @@ class _TaskScreenState extends State<TaskScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    _createLabel(txt: "Title"),
+                    shadowedText(txt: "Title"),
                     _createInputField(
                       text: newTask["title"],
                       fun: (value) {
                         newTask["title"] = value;
                       },
                     ),
-                    _createLabel(txt: "Category"),
                     Row(
                       children: [
                         Expanded(
-                          flex: 12,
-                          child: Container(
-                            decoration: decoration,
-                            margin: const EdgeInsets.symmetric(vertical: 8),
-                            child: FittedBox(
-                              child: Menu(
-                                task: newTask,
-                                fun: (String? value) {
-                                  setState(
-                                    () {
-                                      newTask["category"] = value!;
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
+                            flex: 12, child: shadowedText(txt: "Category")),
                         const Expanded(
-                          flex: 1,
-                          child: ColoredBox(color: Colors.transparent),
-                        ),
+                            child: ColoredBox(color: Colors.transparent)),
                         Expanded(
-                          flex: 12,
-                          child: Container(
-                            decoration: decoration,
-                            child: GestureDetector(
-                              onTap: () async {
-                                DateTime dateTime = await no();
-                                if (kDebugMode) {
-                                  print(dateTime);
-                                }
-                              },
-                              child: const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Text("Select Date")),
-                            ),
-                          ),
-                        ),
+                            flex: 12, child: shadowedText(txt: "Reminder")),
                       ],
                     ),
-                    _createLabel(txt: "Detail"),
+                    IntrinsicHeight(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(
+                              flex: 12,
+                              child: Container(
+                                decoration: decoration,
+                                child: FittedBox(
+                                  child: Menu(
+                                    task: newTask,
+                                    fun: (String? value) {
+                                      setState(
+                                        () {
+                                          newTask["category"] = value!;
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Expanded(
+                                child: ColoredBox(color: Colors.transparent)),
+                            Expanded(
+                              flex: 12,
+                              child: Container(
+                                decoration: decoration,
+                                child: TextButton(
+                                  onPressed: () async {
+                                    DateTime? reminder = await getReminder();
+                                    if (reminder != null) {
+                                      setState(() {
+                                        newTask["reminder"] =
+                                            "${reminder.toString().split(':')[0]}:${reminder.toString().split(':')[1]}";
+                                      });
+                                    }
+                                  },
+                                  child: Text(
+                                      (newTask["reminder"] == "null")
+                                          ? "Set Reminder"
+                                          : newTask["reminder"],
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 13)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    shadowedText(txt: "Detail"),
                     _createInputField(
                         text: newTask["detail"],
                         long: true,
@@ -202,18 +216,28 @@ class _TaskScreenState extends State<TaskScreen> {
         txt: "Save",
         fun: () {
           if (newTask["title"].isNotEmpty) {
-            if (tasks.contains(widget.oldTask)) {
-              tasks[tasks.indexOf(widget.oldTask)] = newTask;
+            if (newTask["title"] == "Demo Task" &&
+                newTask["detail"] ==
+                    "Update My Title Or Detail Otherwise I Will Be Deleted") {
+              tasks.remove(widget.oldTask);
             } else {
-              tasks.add(
-                {
-                  "title": newTask["title"],
-                  "detail": newTask["detail"],
-                  "category": newTask["category"],
-                },
-              );
+              if (tasks.contains(widget.oldTask)) {
+                tasks[tasks.indexOf(widget.oldTask)] = newTask;
+              } else {
+                tasks.add(
+                  {
+                    "title": newTask["title"],
+                    "detail": newTask["detail"],
+                    "category": newTask["category"],
+                    "reminder": newTask["reminder"],
+                  },
+                );
+              }
             }
             Navigator.pop(context);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Center(child: Text("Add title to task."))));
           }
         },
       ),

@@ -17,6 +17,7 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return DropdownMenu<String>(
+      textStyle: const TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
       inputDecorationTheme: InputDecorationTheme(
           enabledBorder: disabledInternalBorder,
           activeIndicatorBorder: null,

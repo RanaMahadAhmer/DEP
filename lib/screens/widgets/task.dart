@@ -35,7 +35,7 @@ class _TaskState extends State<Task> {
                           widget.task["title"],
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Row(
@@ -65,11 +65,13 @@ class _TaskState extends State<Task> {
                           style: const TextStyle(fontSize: 15),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
-                          "Time",
-                          style: TextStyle(fontSize: 15),
+                          widget.task["reminder"] == "null"
+                              ? "No Reminder"
+                              : widget.task["reminder"],
+                          style: const TextStyle(fontSize: 15),
                         ),
                       ),
                     ],

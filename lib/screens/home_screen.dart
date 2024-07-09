@@ -17,40 +17,76 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {});
   }
 
+  _getDivider() {
+    return const Divider(
+      height: 2,
+      thickness: 5,
+      color: Colors.black54,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("To Do List"),
+        title: shadowedText(txt: "To Do List", size: 25),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              for (final task in tasks)
-                Task(
-                  task: task,
-                  fun: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TaskScreen(oldTask: task),
+      body: (tasks.isEmpty)
+          ? Expanded(
+              child: Column(
+                children: [
+                  _getDivider(),
+                  Expanded(
+                    child: Center(
+                      child: shadowedText(txt: "Add new Tasks"),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 8.0, right: 8.0, bottom: 8.0),
+                      child: Expanded(
+                        child: Column(
+                          children: [
+                            _getDivider(),
+                            for (final task in tasks)
+                              Task(
+                                task: task,
+                                fun: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          TaskScreen(oldTask: task),
+                                    ),
+                                  ).whenComplete(_update);
+                                },
+                              ),
+                          ],
+                        ),
                       ),
-                    ).whenComplete(_update);
-                  },
-                ),
-            ],
-          ),
-        ),
-      ),
+                    ),
+                  ),
+                );
+              },
+            ),
       floatingActionButton: createButton(fun: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => TaskScreen(
-                  oldTask: {"title": "", "detail": "", "category": ""})),
+              builder: (context) => TaskScreen(oldTask: const {
+                    "title": "",
+                    "detail": "",
+                    "category": "Learning",
+                    "reminder": "null"
+                  })),
         ).whenComplete(_update);
       }),
     );

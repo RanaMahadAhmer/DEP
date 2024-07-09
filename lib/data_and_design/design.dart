@@ -21,6 +21,21 @@ var disabledInternalBorder = const UnderlineInputBorder(
   borderSide: BorderSide(color: Colors.transparent),
 );
 
+shadowedText(
+    {required String txt,
+    double size = 20,
+    FontWeight weight = FontWeight.w500}) {
+  return Text(
+    txt,
+    style: TextStyle(fontSize: size, fontWeight: weight, shadows: const [
+      Shadow(
+        blurRadius: 60,
+        color: Colors.black,
+      )
+    ]),
+  );
+}
+
 FloatingActionButton createButton({String? txt, required VoidCallback fun}) {
   return FloatingActionButton(
     backgroundColor: Colors.black12,
