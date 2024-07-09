@@ -15,32 +15,43 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late List<Map<String, dynamic>> tasks;
+
   void _update() {
     setState(() {});
   }
 
-  _getTasks() async {
-    return await DatabaseDao.getTasks();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  loadData() {
+    DatabaseDao.getTasks().then((onValue) {
+      setState(() {
+        tasks = onValue;
+
+        print("The id is ${tasks[0]['id']}");
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var tasks = _getTasks();
-
+    loadData();
     return Scaffold(
       appBar: AppBar(
         title: shadowedText(txt: "To Do List", size: 25),
       ),
       body: (tasks.isEmpty)
-          ? Expanded(
+          ? Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
                   getDivider(),
                   Expanded(
-                    child: Center(
-                      child: shadowedText(txt: "Add new Tasks"),
-                    ),
-                  ),
+                      child: Center(child: shadowedText(txt: "Add new Tasks"))),
                 ],
               ),
             )
@@ -52,26 +63,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Padding(
                       padding: const EdgeInsets.only(
                           left: 8.0, right: 8.0, bottom: 8.0),
-                      child: Expanded(
-                        child: Column(
-                          children: [
-                            getDivider(),
-                            for (final task in tasks)
-                              TaskCard(
-                                task: Task.fromMap(id: task.id, task: task),
-                                fun: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => TaskScreen(
-                                          oldTask: Task.fromMap(
-                                              id: task.id, task: task)),
-                                    ),
-                                  ).whenComplete(_update);
-                                },
-                              ),
-                          ],
-                        ),
+                      child: Column(
+                        children: [
+                          getDivider(),
+                          for (final task in tasks)
+                            TaskCard(
+                              fun: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        TaskScreen(oldTask: Task.fromMap(task)),
+                                  ),
+                                ).whenComplete(_update);
+                              },
+                              task: Task.fromMap(task),
+                            ),
+                        ],
                       ),
                     ),
                   ),
@@ -84,8 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
           MaterialPageRoute(
             builder: (context) => TaskScreen(
               oldTask: Task.fromMap(
-                id: null,
-                task: {
+                {
+                  "id": null,
                   "title": "",
                   "detail": "",
                   "category": "Learning",

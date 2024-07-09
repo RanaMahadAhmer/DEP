@@ -27,7 +27,7 @@ class _TaskScreenState extends State<TaskScreen> {
   late Task newTask;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     newTask = widget.oldTask.copy();
   }
@@ -96,10 +96,13 @@ class _TaskScreenState extends State<TaskScreen> {
           children: [
             shadowedText(txt: "New Task", size: 22, weight: FontWeight.w600),
             IconButton(
-              onPressed: () {
+              onPressed: () async {
                 if (newTask.title.isNotEmpty || newTask.detail.isNotEmpty) {
+                  print("Here");
+                  print(widget.oldTask.id);
                   if (widget.oldTask.id != null) {
-                    DatabaseDao.deleteTask(widget.oldTask.id!);
+                    print("Calling Delete Method");
+                    await DatabaseDao.deleteTask(widget.oldTask.id!);
                   }
                   Navigator.pop(context);
                 }
@@ -228,18 +231,9 @@ class _TaskScreenState extends State<TaskScreen> {
               if (widget.oldTask.id != null) {
                 DatabaseDao.updateTask(newTask);
                 //TODO: Update the task in database
-                // tasks[tasks.indexOf(widget.oldTask)] = newTask;
               } else {
                 // TODO: Add the task to database
                 DatabaseDao.insertTask(newTask);
-                // tasks.add(
-                //   {
-                //     "title": newTask["title"],
-                //     "detail": newTask["detail"],
-                //     "category": newTask["category"],
-                //     "reminder": newTask["reminder"],
-                //   },
-                // );
               }
             }
             Navigator.pop(context);

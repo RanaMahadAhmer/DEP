@@ -7,8 +7,8 @@ class Task {
 
   Task();
 
-  Task.fromMap({int? id, required Map<String, dynamic> task}) {
-    id = id;
+  Task.fromMap(Map task) {
+    id = task["id"];
     title = task["title"];
     detail = task["detail"];
     category = task["category"];
@@ -16,13 +16,13 @@ class Task {
   }
 
   copy() {
-    return {
+    return Task.fromMap({
       "id": id,
       "title": title,
       "detail": detail,
       "category": category,
       "reminder": reminder
-    };
+    });
   }
 
   compare(Task other) {

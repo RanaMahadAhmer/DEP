@@ -28,7 +28,8 @@ class DatabaseDao {
   }
 
   static Future<List<Map<String, dynamic>>> getTasks() async {
-    return await database!.rawQuery('SELECT * FROM Tasks');
+    var data = await database!.rawQuery('SELECT * FROM Tasks');
+    return data;
   }
 
   static Future<void> deleteTask(int id) async {

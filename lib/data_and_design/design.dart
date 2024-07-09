@@ -58,7 +58,7 @@ Icon createCategoryMark({required String taskCategory}) {
 getDivider() {
   return const Divider(
     height: 2,
-    thickness: 5,
+    thickness: 2,
     color: Colors.black54,
   );
 }
