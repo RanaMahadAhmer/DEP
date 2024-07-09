@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:to_do_list_app/database/database_dao.dart';
 import 'package:to_do_list_app/screens/home_screen.dart';
 
-void main() {
+import 'data_and_design/task.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseDao.init();
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);

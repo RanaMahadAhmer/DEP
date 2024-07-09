@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
+import 'package:to_do_list_app/database/database_dao.dart';
 
 import 'package:to_do_list_app/screens/widgets/menu.dart';
 
 import '../data_and_design/data.dart';
 import '../data_and_design/design.dart';
+import '../data_and_design/task.dart';
 
 class TaskScreen extends StatefulWidget {
-  Map oldTask;
+  Task oldTask;
 
   TaskScreen({super.key, required this.oldTask});
 
@@ -22,12 +24,12 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  late Map newTask;
+  late Task newTask;
 
   @override
   initState() {
     super.initState();
-    newTask = {...widget.oldTask};
+    newTask = widget.oldTask.copy();
   }
 
   _createInputField(
@@ -95,10 +97,9 @@ class _TaskScreenState extends State<TaskScreen> {
             shadowedText(txt: "New Task", size: 22, weight: FontWeight.w600),
             IconButton(
               onPressed: () {
-                if (newTask["title"].isNotEmpty ||
-                    newTask["detail"].isNotEmpty) {
-                  if (tasks.contains(widget.oldTask)) {
-                    tasks.remove(widget.oldTask);
+                if (newTask.title.isNotEmpty || newTask.detail.isNotEmpty) {
+                  if (widget.oldTask.id != null) {
+                    DatabaseDao.deleteTask(widget.oldTask.id!);
                   }
                   Navigator.pop(context);
                 }
@@ -123,11 +124,12 @@ class _TaskScreenState extends State<TaskScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    getDivider(),
                     shadowedText(txt: "Title"),
                     _createInputField(
-                      text: newTask["title"],
+                      text: newTask.title,
                       fun: (value) {
-                        newTask["title"] = value;
+                        newTask.title = value;
                       },
                     ),
                     Row(
@@ -156,7 +158,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                     fun: (String? value) {
                                       setState(
                                         () {
-                                          newTask["category"] = value!;
+                                          newTask.category = value!;
                                         },
                                       );
                                     },
@@ -175,15 +177,15 @@ class _TaskScreenState extends State<TaskScreen> {
                                     DateTime? reminder = await getReminder();
                                     if (reminder != null) {
                                       setState(() {
-                                        newTask["reminder"] =
+                                        newTask.reminder =
                                             "${reminder.toString().split(':')[0]}:${reminder.toString().split(':')[1]}";
                                       });
                                     }
                                   },
                                   child: Text(
-                                      (newTask["reminder"] == "null")
+                                      (newTask.reminder == "null")
                                           ? "Set Reminder"
-                                          : newTask["reminder"],
+                                          : newTask.reminder,
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w400,
@@ -197,10 +199,10 @@ class _TaskScreenState extends State<TaskScreen> {
                     ),
                     shadowedText(txt: "Detail"),
                     _createInputField(
-                        text: newTask["detail"],
+                        text: newTask.detail,
                         long: true,
                         fun: (value) {
-                          newTask["detail"] = value;
+                          newTask.detail = value;
                         }),
                     const SizedBox(
                       height: 10,
@@ -215,23 +217,29 @@ class _TaskScreenState extends State<TaskScreen> {
       floatingActionButton: createButton(
         txt: "Save",
         fun: () {
-          if (newTask["title"].isNotEmpty) {
-            if (newTask["title"] == "Demo Task" &&
-                newTask["detail"] ==
+          if (newTask.title.isNotEmpty) {
+            if (newTask.id == 1 &&
+                newTask.title == "Demo Task" &&
+                newTask.detail ==
                     "Update My Title Or Detail Otherwise I Will Be Deleted") {
-              tasks.remove(widget.oldTask);
+              //TODO: Remove the demo task from database
+              DatabaseDao.deleteTask(newTask.id!);
             } else {
-              if (tasks.contains(widget.oldTask)) {
-                tasks[tasks.indexOf(widget.oldTask)] = newTask;
+              if (widget.oldTask.id != null) {
+                DatabaseDao.updateTask(newTask);
+                //TODO: Update the task in database
+                // tasks[tasks.indexOf(widget.oldTask)] = newTask;
               } else {
-                tasks.add(
-                  {
-                    "title": newTask["title"],
-                    "detail": newTask["detail"],
-                    "category": newTask["category"],
-                    "reminder": newTask["reminder"],
-                  },
-                );
+                // TODO: Add the task to database
+                DatabaseDao.insertTask(newTask);
+                // tasks.add(
+                //   {
+                //     "title": newTask["title"],
+                //     "detail": newTask["detail"],
+                //     "category": newTask["category"],
+                //     "reminder": newTask["reminder"],
+                //   },
+                // );
               }
             }
             Navigator.pop(context);

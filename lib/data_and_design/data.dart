@@ -1,14 +1,5 @@
 import 'package:flutter/material.dart';
 
-List tasks = [
-  {
-    "title": "Demo Task",
-    "detail": "Update My Title Or Detail Otherwise I Will Be Deleted",
-    "category": "Learning",
-    "reminder": "null"
-  }
-];
-
 List<String> categories = [
   "Daily",
   "Work",

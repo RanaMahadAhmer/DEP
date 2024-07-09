@@ -29,8 +29,9 @@ shadowedText(
     txt,
     style: TextStyle(fontSize: size, fontWeight: weight, shadows: const [
       Shadow(
-        blurRadius: 60,
+        blurRadius: 40,
         color: Colors.black,
+        offset: Offset(0, 5),
       )
     ]),
   );
@@ -51,5 +52,13 @@ Icon createCategoryMark({required String taskCategory}) {
     size: 20,
     Icons.bookmark,
     color: colors[taskCategory],
+  );
+}
+
+getDivider() {
+  return const Divider(
+    height: 2,
+    thickness: 5,
+    color: Colors.black54,
   );
 }

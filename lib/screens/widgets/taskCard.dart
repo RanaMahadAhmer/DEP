@@ -3,19 +3,20 @@ import 'package:flutter/widgets.dart';
 
 import '../../data_and_design/data.dart';
 import '../../data_and_design/design.dart';
+import '../../data_and_design/task.dart';
 
-class Task extends StatefulWidget {
-  Map task;
+class TaskCard extends StatefulWidget {
+  Task task;
 
   VoidCallback fun;
 
-  Task({super.key, required this.task, required this.fun});
+  TaskCard({super.key, required this.task, required this.fun});
 
   @override
-  State<Task> createState() => _TaskState();
+  State<TaskCard> createState() => _TaskCardState();
 }
 
-class _TaskState extends State<Task> {
+class _TaskCardState extends State<TaskCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,7 +33,7 @@ class _TaskState extends State<Task> {
                     children: [
                       Flexible(
                         child: Text(
-                          widget.task["title"],
+                          widget.task.title,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
@@ -41,14 +42,14 @@ class _TaskState extends State<Task> {
                       Row(
                         children: [
                           Text(
-                            widget.task["category"],
+                            widget.task.category,
                             style: const TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w600),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             child: createCategoryMark(
-                                taskCategory: widget.task["category"]),
+                                taskCategory: widget.task.category),
                           ),
                         ],
                       ),
@@ -59,7 +60,7 @@ class _TaskState extends State<Task> {
                     children: [
                       Flexible(
                         child: Text(
-                          widget.task["detail"],
+                          widget.task.detail,
                           softWrap: false,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(fontSize: 15),
@@ -68,9 +69,9 @@ class _TaskState extends State<Task> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
-                          widget.task["reminder"] == "null"
+                          widget.task.reminder == "null"
                               ? "No Reminder"
-                              : widget.task["reminder"],
+                              : widget.task.reminder,
                           style: const TextStyle(fontSize: 15),
                         ),
                       ),
