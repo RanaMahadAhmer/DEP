@@ -27,19 +27,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  loadData() {
+  @override
+  Widget build(BuildContext context) {
     DatabaseDao.getTasks().then((onValue) {
       setState(() {
         tasks = onValue;
-
-        print("The id is ${tasks[0]['id']}");
       });
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    loadData();
     return Scaffold(
       appBar: AppBar(
         title: shadowedText(txt: "To Do List", size: 25),
