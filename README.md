@@ -18,7 +18,7 @@ daily tasks.
 #### Key Steps:
 1. Design the app's UI with screens for task creation,
 viewing, and editing.
-2. Implement a local database (e.g., Room) to store tasks.
+2. Implement a local database (e.g., Sqflite) to store tasks.
 3. Enable CRUD operations for tasks.
 4. Add features like task categorization, due dates, and
 reminders.
@@ -27,7 +27,11 @@ expected.
 
 #### Stack:
 1. Flutter/Dart
-2. Floor Database
+2. Sqflite Local Database
+
+#### Attribution:
+The icon for the app was downloaded from [FlatIcon](https://www.flaticon.com/). 
+The Author responsible for making the icon is Gajah Mada@FlatIcon :[Author](https://www.flaticon.com/authors/gajah-mada)
 #### Link:
 [Open](https://github.com/RanaMahadAhmer/DEP/tree/Task1-To-Do-List-App)
 
