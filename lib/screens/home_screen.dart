@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_app/screens/task_screen.dart';
-import 'package:to_do_list_app/screens/widgets/taskCard.dart';
+import '/screens/task_screen.dart';
+import '/screens/widgets/taskCard.dart';
 
 import '../data_and_design/data.dart';
 import '../data_and_design/design.dart';

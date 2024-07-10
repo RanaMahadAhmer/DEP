@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
-import 'package:to_do_list_app/database/database_dao.dart';
+import '/database/database_dao.dart';
 
-import 'package:to_do_list_app/screens/widgets/category_menu.dart';
+import 'widgets/category_menu.dart';
 
-import '../data_and_design/data.dart';
 import '../data_and_design/design.dart';
 import '../data_and_design/task.dart';
 import '../notifications/local_notifications.dart';
@@ -25,12 +24,13 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  late Task newTask;
+  late Task _newTask;
+  DateTime? _reminder;
 
   @override
   void initState() {
     super.initState();
-    newTask = widget.oldTask.copy();
+    _newTask = widget.oldTask.copy();
   }
 
   _createInputField(
@@ -61,13 +61,13 @@ class _TaskScreenState extends State<TaskScreen> {
       theme: ThemeData(
           buttonTheme: const ButtonThemeData(
               buttonColor: Colors.black12, textTheme: ButtonTextTheme.primary)),
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
+      initialDate: DateTime.now().add(const Duration(minutes: 5)),
+      firstDate: DateTime.now().add(const Duration(minutes: 5)),
       lastDate: DateTime.now().add(
         const Duration(days: 30),
       ),
       is24HourMode: false,
-      isShowSeconds: false,
+      isShowSeconds: true,
       minutesInterval: 1,
       secondsInterval: 1,
       borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -98,7 +98,7 @@ class _TaskScreenState extends State<TaskScreen> {
             shadowedText(txt: "New Task", size: 22, weight: FontWeight.w600),
             IconButton(
               onPressed: () async {
-                if (newTask.title.isNotEmpty || newTask.detail.isNotEmpty) {
+                if (_newTask.title.isNotEmpty || _newTask.detail.isNotEmpty) {
                   if (widget.oldTask.id != null) {
                     LocalNotifications.deleteNotification(
                         id: widget.oldTask.id!);
@@ -130,9 +130,9 @@ class _TaskScreenState extends State<TaskScreen> {
                     getDivider(),
                     shadowedText(txt: "Title"),
                     _createInputField(
-                      text: newTask.title,
+                      text: _newTask.title,
                       fun: (value) {
-                        newTask.title = value;
+                        _newTask.title = value;
                       },
                     ),
                     Row(
@@ -157,11 +157,11 @@ class _TaskScreenState extends State<TaskScreen> {
                                 decoration: decoration,
                                 child: FittedBox(
                                   child: CategoryMenu(
-                                    task: newTask,
+                                    task: _newTask,
                                     fun: (String? value) {
                                       setState(
                                         () {
-                                          newTask.category = value!;
+                                          _newTask.category = value!;
                                         },
                                       );
                                     },
@@ -177,18 +177,18 @@ class _TaskScreenState extends State<TaskScreen> {
                                 decoration: decoration,
                                 child: TextButton(
                                   onPressed: () async {
-                                    DateTime? reminder = await getReminder();
-                                    if (reminder != null) {
+                                    _reminder = await getReminder();
+                                    if (_reminder != null) {
                                       setState(() {
-                                        newTask.reminder =
-                                            "${reminder.toString().split(':')[0]}:${reminder.toString().split(':')[1]}";
+                                        _newTask.reminder =
+                                            _reminder.toString();
                                       });
                                     }
                                   },
                                   child: Text(
-                                      (newTask.reminder == "null")
+                                      (_newTask.reminder == "null")
                                           ? "Set Reminder"
-                                          : newTask.reminder,
+                                          : _newTask.reminder.split('.')[0],
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w400,
@@ -202,10 +202,10 @@ class _TaskScreenState extends State<TaskScreen> {
                     ),
                     shadowedText(txt: "Detail"),
                     _createInputField(
-                        text: newTask.detail,
+                        text: _newTask.detail,
                         long: true,
                         fun: (value) {
-                          newTask.detail = value;
+                          _newTask.detail = value;
                         }),
                     const SizedBox(
                       height: 10,
@@ -220,33 +220,35 @@ class _TaskScreenState extends State<TaskScreen> {
       floatingActionButton: createButton(
         txt: "Save",
         fun: () {
-          if (newTask.title.isNotEmpty) {
+          if (_newTask.title.isNotEmpty) {
             if (widget.oldTask.id != null) {
-              DatabaseDao.updateTask(newTask);
-              if (widget.oldTask.reminder != newTask.reminder) {
-                LocalNotifications.deleteNotification(id: newTask.id!);
+              DatabaseDao.updateTask(_newTask);
+              if (widget.oldTask.reminder != _newTask.reminder) {
+                LocalNotifications.deleteNotification(id: _newTask.id!);
                 LocalNotifications.scheduledNotification(
-                  id: newTask.id!,
-                  title: newTask.title,
-                  body: newTask.detail,
+                  id: _newTask.id!,
+                  title: _newTask.title,
+                  body: _newTask.detail,
                   payload: "payload",
-                  duration: const Duration(seconds: 10),
+                  duration: _reminder!.difference(DateTime.now()),
                 );
               }
             } else {
-              DatabaseDao.insertTask(newTask);
+              DatabaseDao.insertTask(_newTask);
 
-              if (newTask.reminder != "null") {
+              if (_newTask.reminder != "null") {
                 int? id;
                 DatabaseDao.getNextId().then((onValue) {
                   id = onValue.first.values.first;
                 });
+                ;
                 LocalNotifications.scheduledNotification(
-                    id: (id == null) ? 1 : id!,
-                    title: newTask.title,
-                    body: newTask.detail,
-                    payload: "payload",
-                    duration: const Duration(seconds: 10));
+                  id: (id == null) ? 1 : id!,
+                  title: _newTask.title,
+                  body: _newTask.detail,
+                  payload: "payload",
+                  duration: _reminder!.difference(DateTime.now()),
+                );
               }
             }
             Navigator.pop(context);

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../data_and_design/data.dart';
 import '../../data_and_design/design.dart';
 import '../../data_and_design/task.dart';
 
@@ -19,8 +18,23 @@ class TaskCard extends StatefulWidget {
 }
 
 class _TaskCardState extends State<TaskCard> {
+  _getTimeStatus() {
+    if (widget.task.reminder == "null") {
+      return "No Reminder";
+    }
+    switch (DateTime.now().compareTo(DateTime.parse(widget.task.reminder))) {
+      case -1:
+        return widget.task.reminder.split('.')[0];
+      case 0:
+        return "Reminder Due Now";
+      case 1:
+        return "Reminder Expired";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    String status = _getTimeStatus();
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: GestureDetector(
@@ -71,10 +85,13 @@ class _TaskCardState extends State<TaskCard> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
-                          widget.task.reminder == "null"
-                              ? "No Reminder"
-                              : widget.task.reminder,
-                          style: const TextStyle(fontSize: 15),
+                          status,
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: (status == "Reminder Expired" ||
+                                      status == "Reminder Due Now")
+                                  ? Colors.red
+                                  : Colors.black),
                         ),
                       ),
                     ],

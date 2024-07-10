@@ -9,7 +9,6 @@ class DatabaseDao {
   static Future<void> init() async {
     var databasesPath = await getDatabasesPath();
     late String path = '${databasesPath}todo.db';
-    await deleteDatabase(path);
 
     database = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
