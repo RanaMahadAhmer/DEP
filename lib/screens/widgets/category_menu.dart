@@ -4,17 +4,17 @@ import '../../data_and_design/data.dart';
 import '../../data_and_design/design.dart';
 import '../../data_and_design/task.dart';
 
-class Menu extends StatefulWidget {
+class CategoryMenu extends StatefulWidget {
   Task task;
   Function(String?) fun;
 
-  Menu({super.key, required this.task, required this.fun});
+  CategoryMenu({super.key, required this.task, required this.fun});
 
   @override
-  State<Menu> createState() => _MenuState();
+  State<CategoryMenu> createState() => _CategoryMenuState();
 }
 
-class _MenuState extends State<Menu> {
+class _CategoryMenuState extends State<CategoryMenu> {
   @override
   Widget build(BuildContext context) {
     return DropdownMenu<String>(

@@ -9,6 +9,7 @@ class DatabaseDao {
   static Future<void> init() async {
     var databasesPath = await getDatabasesPath();
     late String path = '${databasesPath}todo.db';
+    await deleteDatabase(path);
 
     database = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
@@ -25,6 +26,11 @@ class DatabaseDao {
       await txn.rawInsert(
           'INSERT INTO Tasks(title, detail, category, reminder) VALUES("${task.title}", "${task.detail}", "${task.category}", "${task.reminder}")');
     });
+  }
+
+  static Future<List<Map<String, dynamic>>> getNextId() async {
+    var data = await database!.rawQuery('SELECT MAX(id)+1 AS next FROM Tasks');
+    return data;
   }
 
   static Future<List<Map<String, dynamic>>> getTasks() async {

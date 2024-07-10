@@ -5,6 +5,8 @@ import '../../data_and_design/data.dart';
 import '../../data_and_design/design.dart';
 import '../../data_and_design/task.dart';
 
+//TODO: Check if reminder is not null and if the notification has passed.
+
 class TaskCard extends StatefulWidget {
   Task task;
 

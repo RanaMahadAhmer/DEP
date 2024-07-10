@@ -6,11 +6,12 @@ import 'package:flutter/rendering.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:to_do_list_app/database/database_dao.dart';
 
-import 'package:to_do_list_app/screens/widgets/menu.dart';
+import 'package:to_do_list_app/screens/widgets/category_menu.dart';
 
 import '../data_and_design/data.dart';
 import '../data_and_design/design.dart';
 import '../data_and_design/task.dart';
+import '../notifications/local_notifications.dart';
 
 class TaskScreen extends StatefulWidget {
   Task oldTask;
@@ -98,10 +99,9 @@ class _TaskScreenState extends State<TaskScreen> {
             IconButton(
               onPressed: () async {
                 if (newTask.title.isNotEmpty || newTask.detail.isNotEmpty) {
-                  print("Here");
-                  print(widget.oldTask.id);
                   if (widget.oldTask.id != null) {
-                    print("Calling Delete Method");
+                    LocalNotifications.deleteNotification(
+                        id: widget.oldTask.id!);
                     await DatabaseDao.deleteTask(widget.oldTask.id!);
                   }
                   Navigator.pop(context);
@@ -156,7 +156,7 @@ class _TaskScreenState extends State<TaskScreen> {
                               child: Container(
                                 decoration: decoration,
                                 child: FittedBox(
-                                  child: Menu(
+                                  child: CategoryMenu(
                                     task: newTask,
                                     fun: (String? value) {
                                       setState(
@@ -221,19 +221,32 @@ class _TaskScreenState extends State<TaskScreen> {
         txt: "Save",
         fun: () {
           if (newTask.title.isNotEmpty) {
-            if (newTask.id == 1 &&
-                newTask.title == "Demo Task" &&
-                newTask.detail ==
-                    "Update My Title Or Detail Otherwise I Will Be Deleted") {
-              //TODO: Remove the demo task from database
-              DatabaseDao.deleteTask(newTask.id!);
+            if (widget.oldTask.id != null) {
+              DatabaseDao.updateTask(newTask);
+              if (widget.oldTask.reminder != newTask.reminder) {
+                LocalNotifications.deleteNotification(id: newTask.id!);
+                LocalNotifications.scheduledNotification(
+                  id: newTask.id!,
+                  title: newTask.title,
+                  body: newTask.detail,
+                  payload: "payload",
+                  duration: const Duration(seconds: 10),
+                );
+              }
             } else {
-              if (widget.oldTask.id != null) {
-                DatabaseDao.updateTask(newTask);
-                //TODO: Update the task in database
-              } else {
-                // TODO: Add the task to database
-                DatabaseDao.insertTask(newTask);
+              DatabaseDao.insertTask(newTask);
+
+              if (newTask.reminder != "null") {
+                int? id;
+                DatabaseDao.getNextId().then((onValue) {
+                  id = onValue.first.values.first;
+                });
+                LocalNotifications.scheduledNotification(
+                    id: (id == null) ? 1 : id!,
+                    title: newTask.title,
+                    body: newTask.detail,
+                    payload: "payload",
+                    duration: const Duration(seconds: 10));
               }
             }
             Navigator.pop(context);
