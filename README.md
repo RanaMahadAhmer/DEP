@@ -36,5 +36,16 @@ The Author responsible for making the icon is "Gajah Mada" @ FlatIcon :[Author](
 
 ### Link:
 [Parent Repository](https://github.com/RanaMahadAhmer/DEP)
+### Picture:
+This is the App Icon:
+![Icon](https://github.com/RanaMahadAhmer/DEP/assets/108465680/e0d01e6d-1b0e-46a5-98a2-a4bb818bd981)
+Welcome/Task Screen:
+![Empty Task Screen](https://github.com/RanaMahadAhmer/DEP/assets/108465680/7e23d916-a66e-4ece-aef9-753d2621e759)
+New Task Creation Screen:
+![New Task Screen](https://github.com/RanaMahadAhmer/DEP/assets/108465680/be0fa29a-db17-4785-b3e9-9983ff353c1c)
+Populated Welcome/Task Screen:
+![Populated Task Screen](https://github.com/RanaMahadAhmer/DEP/assets/108465680/a7be52ee-78c0-4891-a8b3-63d06058e75c)
+
+
 
 
