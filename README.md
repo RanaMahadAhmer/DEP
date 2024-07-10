@@ -1,10 +1,10 @@
 # Digital Empowerment Pakistan's Android App Internship
 
-This is a repositry for all the tasks assigned to me under the internship of [Digital Empowerment Pakistan](https://digitalempowermentpakistan.com/) aka DEP.
+This is a repository for all the tasks assigned to me under the internship of [Digital Empowerment Pakistan](https://digitalempowermentpakistan.com/) aka DEP.
 
-It was a requirement of the internship that I make a GitHub repositry by the name 'DEP' and push all my completed tasks to it.
+It was a requirement of the internship that I make a GitHub repository by the name 'DEP' and push all my completed tasks to it.
 
-So, I have made this repositry and all the individual tasks are organized as the orphan branches of this 'DEP' repositry.
+So, I have made this repository and all the individual tasks are organized as the orphan branches of this 'DEP' repository.
 
 ## Tasks
 
@@ -33,5 +33,5 @@ expected.
 The icon for the app was downloaded from [FlatIcon](https://www.flaticon.com/). 
 The Author responsible for making the icon is Gajah Mada@FlatIcon :[Author](https://www.flaticon.com/authors/gajah-mada)
 #### Link:
-[Open](https://github.com/RanaMahadAhmer/DEP/tree/Task1-To-Do-List-App)
+[To DO List App](https://github.com/RanaMahadAhmer/DEP/tree/Task1-To-Do-List-App)
 
