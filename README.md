@@ -35,3 +35,27 @@ The Author responsible for making the icon is Gajah Mada@FlatIcon :[Author](http
 #### Link:
 [To DO List App](https://github.com/RanaMahadAhmer/DEP/tree/Task1-To-Do-List-App)
 
+### Task 2: Weather Native Android App with Kotlin
+
+I was tasked with creating the application as:
+
+
+#### Objective: 
+Develop an app that provides current weather information and
+forecasts.
+
+#### Key Steps:
+
+1. Design the app's UI with screens for current weather and forecasts.
+2. Integrate a weather API (e.g., OpenWeatherMap) to fetch weather data.
+3. Implement data parsing and display the fetched information.
+4. Add features like location search and weather alerts.
+5. Test the app to ensure accurate data display and functionality.
+
+#### Stack:
+1. Kotlin
+2. XML
+3. 
+#### Link:
+[Weather App](https://github.com/RanaMahadAhmer/DEP/tree/Task2-Weather-App)
+
