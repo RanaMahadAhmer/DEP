@@ -33,7 +33,7 @@ expected.
 The icon for the app was downloaded from [FlatIcon](https://www.flaticon.com/). 
 The Author responsible for making the icon is Gajah Mada@FlatIcon :[Author](https://www.flaticon.com/authors/gajah-mada)
 #### Link:
-[To DO List App](https://github.com/RanaMahadAhmer/DEP/tree/Task1-To-Do-List-App)
+[To Do List App](https://github.com/RanaMahadAhmer/DEP/tree/Task1-To-Do-List-App)
 
 ### Task 2: Weather Native Android App with Kotlin
 
