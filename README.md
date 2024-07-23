@@ -10,19 +10,16 @@ I was tasked with creating the application as:
 
 ### Objective:
 
-Create an app that allows users to manage their
-daily tasks.
+Create an app that allows users to
+browse, search, and save recipes.
 
 ### Key Steps:
 
-1. Design the app's UI with screens for task creation,
-   viewing, and editing.
-2. Implement a local database (e.g., Sqflite) to store tasks.
-3. Enable CRUD operations for tasks.
-4. Add features like task categorization, due dates, and
-   reminders.
-5. Test the app thoroughly to ensure all features work as
-   expected.
+
+1. Design the app's UI with screens for recipe browsing, details, and favorites.
+2. Implement a local database to store favorite recipes.
+3. Integrate a recipe API (e.g., Spoonacular) to fetch recipe data.
+4. Implement search functionality and filters.Test the app to ensure smooth navigation and data accuracy.
 
 ### Stack:
 
