@@ -55,7 +55,41 @@ forecasts.
 #### Stack:
 1. Kotlin
 2. XML
-3. 
+   
 #### Link:
 [Weather App](https://github.com/RanaMahadAhmer/DEP/tree/Task2-Weather-App)
+
+
+
+### Task 3: Recipe Native Android App with Kotlin
+
+I was tasked with creating the application as:
+
+#### Objective:
+
+Create an app that allows users to
+browse, search, and save recipes.
+
+#### Key Steps:
+
+1. Design the app's UI with screens for recipe browsing, details, and favorites.
+2. Implement a local database to store favorite recipes.
+3. Integrate a recipe API (e.g., Spoonacular) to fetch recipe data.
+4. Implement search functionality and filters.Test the app to ensure smooth navigation and data accuracy.
+
+#### Stack:
+
+1. Kotlin
+2. Jetpack Compose
+3. Spoonacular API (for recipe data)
+4. Room Database (for Persistence)
+
+#### Attribution:
+The icon for the app was downloaded from [FlatIcon](https://www.flaticon.com/).
+The Author responsible for making the icon is "Freepik" @ FlatIcon :[Author](https://www.flaticon.com/authors/freepik)
+
+#### Link:
+[Recipe Radar](https://github.com/RanaMahadAhmer/DEP/tree/Task3-Recipe-App)
+
+
 
