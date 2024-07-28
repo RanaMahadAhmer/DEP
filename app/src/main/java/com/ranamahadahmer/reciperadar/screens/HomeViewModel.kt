@@ -13,6 +13,14 @@ class HomeViewModel : ViewModel() {
     private val _state = mutableStateOf(HomeState())
     val recipesState: State<HomeState> = _state
 
+
+    private val _showRecipeDetail = mutableStateOf(false)
+    val showRecipeDetail = _showRecipeDetail
+    private val _selectedRecipe =
+        mutableStateOf(Recipe(1,
+            "", 1, 1, "", "", emptyList(), emptyList(), emptyList(), "", ""))
+    val selectedRecipe = _selectedRecipe
+
     init {
         fetchRecipes()
     }

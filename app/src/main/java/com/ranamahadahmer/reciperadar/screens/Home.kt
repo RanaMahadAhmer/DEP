@@ -22,40 +22,32 @@ import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
-import com.ranamahadahmer.reciperadar.data.Recipe
 import com.ranamahadahmer.reciperadar.screens.components.RecipeCard
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Home() {
+fun Home(homeViewModel: HomeViewModel) {
 
-    var show by remember { mutableStateOf(false) }
-    val mode: HomeViewModel = viewModel()
-    val viewState by mode.recipesState
-    var selectedItem by remember {
-        mutableStateOf<Recipe>(Recipe(1,
-            "", 1, 1, "", "", emptyList(), emptyList(), emptyList(), "", ""))
-    }
+    val viewState by homeViewModel.recipesState
+
 
 
     Scaffold(
@@ -82,7 +74,7 @@ fun Home() {
         },
         floatingActionButton = {
             Button(onClick = {
-                mode.fetchRecipes()
+                homeViewModel.fetchRecipes()
             }, modifier = Modifier.height(42.dp)) {
                 Text("Random")
                 Spacer(modifier = Modifier.width(5.dp))
@@ -101,7 +93,12 @@ fun Home() {
                     Column(modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(text = "Loading..")
+                        CircularProgressIndicator(
+                            modifier = Modifier.width(32.dp),
+                            color = MaterialTheme.colorScheme.secondary,
+                            trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                        )
+
                     }
                 }
 
@@ -121,8 +118,8 @@ fun Home() {
                     ) {
                         items(viewState.list) { item ->
                             RecipeCard(item, show = {
-                                show = true
-                                selectedItem = item
+                                homeViewModel.showRecipeDetail.value = true
+                                homeViewModel.selectedRecipe.value = item
                             })
                         }
                     }
@@ -130,20 +127,20 @@ fun Home() {
             }
         }
 
-        if (show) {
+        if (homeViewModel.showRecipeDetail.value) {
             AlertDialog(
                 title = { Text(text = "Recipe") },
                 onDismissRequest = {
-                    show = false
+                    homeViewModel.showRecipeDetail.value = false
                 },
                 confirmButton = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Image(
-                            painter = rememberAsyncImagePainter(model = selectedItem.image),
+                            painter = rememberAsyncImagePainter(model = homeViewModel.selectedRecipe.value.image),
                             contentDescription = "Image of Meal",
                         )
                         TextField(
-                            value = selectedItem.title,
+                            value = homeViewModel.selectedRecipe.value.title,
                             onValueChange = { },
                             enabled = false,
                             label = {
@@ -154,7 +151,8 @@ fun Home() {
                         Spacer(modifier = Modifier.height(16.dp))
 
                         TextField(
-                            value = Html.fromHtml(selectedItem.instructions).toString(),
+                            value = Html.fromHtml(homeViewModel.selectedRecipe.value.instructions)
+                                    .toString(),
                             onValueChange = { },
                             enabled = false,
                             modifier = Modifier.verticalScroll(rememberScrollState()),
