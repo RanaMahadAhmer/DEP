@@ -13,16 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.time.LocalDate
 
 @Composable
-fun TopAppBar(){
+fun TopAppBar() {
 
-    Column (modifier = Modifier
+    Column(modifier = Modifier
             .fillMaxWidth()
-            .padding(12.dp)){
+            .padding(12.dp)) {
         Spacer(modifier = Modifier.height(8.dp))
         StatusBar()
         Spacer(modifier = Modifier.height(12.dp))
@@ -33,11 +34,11 @@ fun TopAppBar(){
 }
 
 @Composable
-fun StatusBar(){
+fun StatusBar() {
     val date = LocalDate.now()
-    Row  (horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
+    Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
             .padding(horizontal = 8.dp)
-            .fillMaxWidth()){
+            .fillMaxWidth()) {
         Text(
 
             text = "${date.dayOfWeek} ${date.dayOfMonth}",
@@ -52,4 +53,10 @@ fun StatusBar(){
             fontWeight = FontWeight.W500
         )
     }
+}
+
+@Preview
+@Composable
+fun TopAppBarPreview() {
+    TopAppBar()
 }
