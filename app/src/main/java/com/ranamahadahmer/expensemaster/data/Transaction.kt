@@ -14,14 +14,6 @@ val listOfTransaction = mutableListOf(
     Transaction(2, "Grocery", 3000.0, LocalDate.now(), "Cash", "Expense"),
     Transaction(3, "Bill", 5000.0, LocalDate.now(), "Online", "Expense"),
     Transaction(4, "Rent", 7000.0, LocalDate.now(), "Cash", "Expense"),
-    Transaction(4, "Rent", 7000.0, LocalDate.now(), "Cash", "Expense"),
-    Transaction(4, "Rent", 7000.0, LocalDate.now(), "Cash", "Expense"),
-    Transaction(4, "Rent", 7000.0, LocalDate.now(), "Cash", "Expense"),
-    Transaction(4, "Rent", 7000.0, LocalDate.now(), "Cash", "Expense"),
-    Transaction(4, "Rent", 7000.0, LocalDate.now(), "Cash", "Expense"),
-    Transaction(4, "Rent", 7000.0, LocalDate.now(), "Cash", "Expense"),
-    Transaction(4, "Rent", 7000.0, LocalDate.now(), "Cash", "Expense"),
-    Transaction(4, "Rent", 7000.0, LocalDate.now(), "Cash", "Expense"),
-    Transaction(4, "Rent", 7000.0, LocalDate.now(), "Cash", "Expense"),
-    Transaction(4, "Rent", 7000.0, LocalDate.now(), "Cash", "Expense"),
-)
+    Transaction(5, "Rent", 7000.0, LocalDate.now(), "Cash", "Expense"),
+
+    )

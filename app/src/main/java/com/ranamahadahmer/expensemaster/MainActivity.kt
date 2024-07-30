@@ -28,11 +28,14 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Navigate() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "add_transaction/") {
+    NavHost(navController, startDestination = "home/") {
         composable("home/") {
             HomeScreen(
                 moveToTransactions = {
                     navController.navigate("transactions/")
+                },
+                moveToAddTransaction = {
+                    navController.navigate("add_transaction/")
                 }
             )
         }
@@ -40,11 +43,21 @@ fun Navigate() {
             TransactionsScreen(
                 moveToHome = {
                     navController.navigate("home/")
+                },
+                moveToAddTransaction = {
+                    navController.navigate("add_transaction/")
                 }
             )
         }
         composable("add_transaction/") {
-            AddTransaction()
+            AddTransaction(
+                moveToHome = {
+                    navController.navigate("home/")
+                },
+                moveToTransactions = {
+                    navController.navigate("transactions/")
+                },
+            )
         }
     }
 

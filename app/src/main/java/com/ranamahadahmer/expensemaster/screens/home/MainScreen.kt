@@ -1,6 +1,7 @@
 package com.ranamahadahmer.expensemaster.screens.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,7 +17,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
@@ -24,22 +24,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ranamahadahmer.expensemaster.R
 import com.ranamahadahmer.expensemaster.data.listOfTransaction
 import com.ranamahadahmer.expensemaster.screens.home.components.Summary
 import com.ranamahadahmer.expensemaster.screens.home.components.TopAppBar
 import com.ranamahadahmer.expensemaster.screens.home.components.TransactionCard
+import com.ranamahadahmer.expensemaster.ui.theme.bgGradient
 
 @Composable
-fun HomeScreen(moveToTransactions: () -> Unit) {
-
-
-    val x = Brush.verticalGradient(colors = listOf(Color.Yellow.copy(alpha = 0.3f),
-        Color.Cyan.copy(alpha = 0.06f),
-        Color.Magenta.copy(green = 0.3f, alpha = 0.2f)), startY = 0.0f, endY = 2500f)
+fun HomeScreen(
+    moveToAddTransaction: () -> Unit,
+    moveToTransactions: () -> Unit) {
 
     Scaffold(
         modifier = Modifier
@@ -57,13 +56,9 @@ fun HomeScreen(moveToTransactions: () -> Unit) {
                         .padding(horizontal = 12.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceAround) {
-
-                    Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
-                    Button(onClick = { moveToTransactions() }) {
-                        Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
-                    }
-
-                    Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
+                    Icon(painter = painterResource(R.drawable.home), contentDescription = "Home")
+                    Icon(painter = painterResource(R.drawable.swap), contentDescription = "Transactions",modifier = Modifier.clickable { moveToTransactions() })
+                    Icon(painter = painterResource(R.drawable.plus), contentDescription = "Add Transaction",modifier = Modifier.clickable { moveToAddTransaction() })
                 }
             }
         }
@@ -72,7 +67,7 @@ fun HomeScreen(moveToTransactions: () -> Unit) {
         Column(horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                     .fillMaxSize()
-                    .background(x)
+                    .background(bgGradient)
                     .padding(innerPadding)
                     .padding(horizontal = 12.dp)) {
             Summary(modifier = Modifier
@@ -98,5 +93,5 @@ fun HomeScreen(moveToTransactions: () -> Unit) {
 @Composable
 @Preview
 fun HomeScreenPreview() {
-    HomeScreen({})
+    HomeScreen({},{})
 }
