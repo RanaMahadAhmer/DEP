@@ -1,9 +1,7 @@
 # Digital Empowerment Pakistan's Android App Internship
 
 This is a repository for all the tasks assigned to me under the internship of [Digital Empowerment Pakistan](https://digitalempowermentpakistan.com/) aka DEP.
-
 It was a requirement of the internship that I make a GitHub repository by the name 'DEP' and push all my completed tasks to it.
-
 So, I have made this repository and all the individual tasks are organized as the orphan branches of this 'DEP' repository.
 
 ## Tasks
@@ -35,6 +33,7 @@ The Author responsible for making the icon is Gajah Mada@FlatIcon :[Author](http
 #### Link:
 [To Do List App](https://github.com/RanaMahadAhmer/DEP/tree/Task1-To-Do-List-App)
 
+
 ### Task 2: Weather Native Android App with Kotlin
 
 I was tasked with creating the application as:
@@ -60,7 +59,6 @@ forecasts.
 [Weather App](https://github.com/RanaMahadAhmer/DEP/tree/Task2-Weather-App)
 
 
-
 ### Task 3: Recipe Native Android App with Kotlin
 
 I was tasked with creating the application as:
@@ -82,7 +80,7 @@ browse, search, and save recipes.
 1. Kotlin
 2. Jetpack Compose
 3. Spoonacular API (for recipe data)
-4. Room Database (for Persistence)
+4. Room Library (for Persistence)
 
 #### Attribution:
 The icon for the app was downloaded from [FlatIcon](https://www.flaticon.com/).
@@ -90,6 +88,44 @@ The Author responsible for making the icon is "Freepik" @ FlatIcon :[Author](htt
 
 #### Link:
 [Recipe Radar](https://github.com/RanaMahadAhmer/DEP/tree/Task3-Recipe-App)
+
+
+### Task 4: Expense Tracker Native Android App with Kotlin
+
+I was tasked with creating the application as:
+
+#### Objective:
+
+Develop an app to help users track their
+expenses and manage their budget.
+
+#### Key Steps:
+
+1. Design the app's UI with screens for adding expenses, viewing summaries, and budget management.
+2. Implement a local database to store expense records.
+3. Enable CRUD operations for expenses.
+4. Add features like expense categorization, budget limits, and visual summaries (charts/graphs).
+5. Test the app to ensure reliable data handling and user-friendly experience.
+
+#### Stack:
+
+1. Kotlin
+2. Jetpack Compose
+3. Room Library (for Persistence)
+
+#### Attribution:
+
+The icon for the app was downloaded from [FlatIcon](https://www.flaticon.com/).
+The Author responsible for making the icon is "Yogi Aprelliyanto" @ FlatIcon :[Author](https://www.flaticon.com/authors/yogi-aprelliyanto)
+
+#### Link:
+[Expense Master](https://github.com/RanaMahadAhmer/DEP/tree/Task4-Expense-Tracker-App)
+
+
+
+
+
+
 
 
 
