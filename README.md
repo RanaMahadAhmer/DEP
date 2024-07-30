@@ -26,7 +26,7 @@ browse, search, and save recipes.
 1. Kotlin
 2. Jetpack Compose
 3. Spoonacular API (for recipe data)
-4. Room Database (for Persistence)
+4. Room Library (for Persistence)
 
 ### Attribution:
 
