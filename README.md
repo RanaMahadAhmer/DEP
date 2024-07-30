@@ -30,8 +30,21 @@ expected.
 #### Attribution:
 The icon for the app was downloaded from [FlatIcon](https://www.flaticon.com/). 
 The Author responsible for making the icon is Gajah Mada@FlatIcon :[Author](https://www.flaticon.com/authors/gajah-mada)
+
 #### Link:
+
 [To Do List App](https://github.com/RanaMahadAhmer/DEP/tree/Task1-To-Do-List-App)
+
+#### Picture:
+
+This is the App Icon:
+![Icon](https://github.com/RanaMahadAhmer/DEP/assets/108465680/e0d01e6d-1b0e-46a5-98a2-a4bb818bd981)
+Welcome/Task Screen:
+![Empty Task Screen](https://github.com/RanaMahadAhmer/DEP/assets/108465680/7e23d916-a66e-4ece-aef9-753d2621e759)
+New Task Creation Screen:
+![New Task Screen](https://github.com/RanaMahadAhmer/DEP/assets/108465680/be0fa29a-db17-4785-b3e9-9983ff353c1c)
+Populated Welcome/Task Screen:
+![Populated Task Screen](https://github.com/RanaMahadAhmer/DEP/assets/108465680/a7be52ee-78c0-4891-a8b3-63d06058e75c)
 
 
 ### Task 2: Weather Native Android App with Kotlin
@@ -83,11 +96,22 @@ browse, search, and save recipes.
 4. Room Library (for Persistence)
 
 #### Attribution:
+
 The icon for the app was downloaded from [FlatIcon](https://www.flaticon.com/).
 The Author responsible for making the icon is "Freepik" @ FlatIcon :[Author](https://www.flaticon.com/authors/freepik)
 
 #### Link:
+
 [Recipe Radar](https://github.com/RanaMahadAhmer/DEP/tree/Task3-Recipe-App)
+
+#### Picture:
+
+This is the App Icon:
+![Icon](https://github.com/user-attachments/assets/2481ca5c-5dde-43aa-a450-c4c9349e9fe4)
+Welcome Screen/Random Recipe Screen:
+![Welcome Screen](https://github.com/user-attachments/assets/21e433dd-e999-42b1-95cb-0cbb72401119)
+Recipe Instructions Popup:
+![Instruction Page](https://github.com/user-attachments/assets/99d65c73-3375-4fea-ae5f-ef2bebbafa6f)
 
 
 ### Task 4: Expense Tracker Native Android App with Kotlin
@@ -119,9 +143,17 @@ The icon for the app was downloaded from [FlatIcon](https://www.flaticon.com/).
 The Author responsible for making the icon is "Yogi Aprelliyanto" @ FlatIcon :[Author](https://www.flaticon.com/authors/yogi-aprelliyanto)
 
 #### Link:
+
 [Expense Master](https://github.com/RanaMahadAhmer/DEP/tree/Task4-Expense-Tracker-App)
 
+#### Picture:
 
+Home:
+![Home](https://github.com/user-attachments/assets/f9084f68-1301-4935-bc3f-3ad7e6e057e9)
+All Transactions:
+![All Transactions](https://github.com/user-attachments/assets/37cb5415-f09f-46ab-b3d4-1ffa63ebabd7)
+New Transaction:
+![New Transaction](https://github.com/user-attachments/assets/670b9179-8faa-41ae-aae4-19538f10a592)
 
 
 
