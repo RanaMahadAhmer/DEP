@@ -25,7 +25,7 @@ expenses and manage their budget.
 
 1. Kotlin
 2. Jetpack Compose
-3. Room Database (for Persistence)
+3. Room Library (for Persistence)
 
 ### Attribution:
 
