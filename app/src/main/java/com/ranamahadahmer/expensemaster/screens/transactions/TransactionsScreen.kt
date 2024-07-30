@@ -1,10 +1,9 @@
-package com.ranamahadahmer.expensemaster.screens.transaction
+package com.ranamahadahmer.expensemaster.screens.transactions
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,8 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.sharp.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
@@ -32,12 +30,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ranamahadahmer.expensemaster.data.listOfTransaction
-import com.ranamahadahmer.expensemaster.screens.main.components.Summary
-import com.ranamahadahmer.expensemaster.screens.main.components.TransactionCard
-import com.ranamahadahmer.expensemaster.screens.transaction.components.TransactionDetailCard
+import com.ranamahadahmer.expensemaster.screens.transactions.components.TransactionDetailCard
 
 @Composable
-fun TransactionScreen() {
+fun TransactionsScreen(moveToHome: () -> Unit) {
 
 
     val x = Brush.verticalGradient(colors = listOf(Color.Yellow.copy(alpha = 0.3f),
@@ -68,7 +64,10 @@ fun TransactionScreen() {
                         .padding(horizontal = 12.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceAround) {
-                    Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
+                    Button(onClick = { moveToHome() }) {
+                        Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
+                    }
+
                     Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
                     Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
                 }
@@ -97,6 +96,6 @@ fun TransactionScreen() {
 
 @Composable
 @Preview
-fun TransactionScreenPreview() {
-    TransactionScreen()
+fun TransactionsScreenPreview() {
+    TransactionsScreen {}
 }

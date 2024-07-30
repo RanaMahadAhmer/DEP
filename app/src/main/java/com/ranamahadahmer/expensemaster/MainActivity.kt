@@ -8,8 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.ranamahadahmer.expensemaster.screens.main.MainScreen
-import com.ranamahadahmer.expensemaster.screens.transaction.TransactionScreen
+import com.ranamahadahmer.expensemaster.screens.add_transaction.AddTransaction
+import com.ranamahadahmer.expensemaster.screens.home.HomeScreen
+import com.ranamahadahmer.expensemaster.screens.transactions.TransactionsScreen
 import com.ranamahadahmer.expensemaster.ui.theme.ExpenseMasterTheme
 
 class MainActivity : ComponentActivity() {
@@ -27,9 +28,24 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Navigate() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "transaction/") {
-        composable("main/") { MainScreen() }
-        composable("transaction/") { TransactionScreen() }
+    NavHost(navController, startDestination = "add_transaction/") {
+        composable("home/") {
+            HomeScreen(
+                moveToTransactions = {
+                    navController.navigate("transactions/")
+                }
+            )
+        }
+        composable("transactions/") {
+            TransactionsScreen(
+                moveToHome = {
+                    navController.navigate("home/")
+                }
+            )
+        }
+        composable("add_transaction/") {
+            AddTransaction()
+        }
     }
 
 }

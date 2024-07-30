@@ -1,4 +1,4 @@
-package com.ranamahadahmer.expensemaster.screens.transaction.components
+package com.ranamahadahmer.expensemaster.screens.transactions.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

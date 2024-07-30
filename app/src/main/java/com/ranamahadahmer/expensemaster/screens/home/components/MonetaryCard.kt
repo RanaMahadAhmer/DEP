@@ -1,4 +1,4 @@
-package com.ranamahadahmer.expensemaster.screens.main.components
+package com.ranamahadahmer.expensemaster.screens.home.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

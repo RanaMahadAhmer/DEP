@@ -1,4 +1,4 @@
-package com.ranamahadahmer.expensemaster.screens.main
+package com.ranamahadahmer.expensemaster.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +16,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
@@ -28,12 +29,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ranamahadahmer.expensemaster.data.listOfTransaction
-import com.ranamahadahmer.expensemaster.screens.main.components.Summary
-import com.ranamahadahmer.expensemaster.screens.main.components.TopAppBar
-import com.ranamahadahmer.expensemaster.screens.main.components.TransactionCard
+import com.ranamahadahmer.expensemaster.screens.home.components.Summary
+import com.ranamahadahmer.expensemaster.screens.home.components.TopAppBar
+import com.ranamahadahmer.expensemaster.screens.home.components.TransactionCard
 
 @Composable
-fun MainScreen() {
+fun HomeScreen(moveToTransactions: () -> Unit) {
 
 
     val x = Brush.verticalGradient(colors = listOf(Color.Yellow.copy(alpha = 0.3f),
@@ -56,8 +57,12 @@ fun MainScreen() {
                         .padding(horizontal = 12.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceAround) {
+
                     Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
-                    Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
+                    Button(onClick = { moveToTransactions() }) {
+                        Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
+                    }
+
                     Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
                 }
             }
@@ -92,6 +97,6 @@ fun MainScreen() {
 
 @Composable
 @Preview
-fun MainScreenPreview() {
-    MainScreen()
+fun HomeScreenPreview() {
+    HomeScreen({})
 }
