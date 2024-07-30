@@ -36,5 +36,12 @@ The Author responsible for making the icon is "Yogi Aprelliyanto" @ FlatIcon :[A
 [Parent Repository](https://github.com/RanaMahadAhmer/DEP)
 
 ### Picture:
+#### Home:
+![Home](https://github.com/user-attachments/assets/f9084f68-1301-4935-bc3f-3ad7e6e057e9)
+#### All Transactions:
+![All Transactions](https://github.com/user-attachments/assets/37cb5415-f09f-46ab-b3d4-1ffa63ebabd7)
+#### New Transaction:
+![New Transaction](https://github.com/user-attachments/assets/670b9179-8faa-41ae-aae4-19538f10a592)
+
 
 
