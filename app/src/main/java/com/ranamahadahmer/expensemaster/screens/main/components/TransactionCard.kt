@@ -20,13 +20,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ranamahadahmer.expensemaster.screens.main.data.Transaction
+import com.ranamahadahmer.expensemaster.data.Transaction
 import java.time.LocalDate
 
 @Composable
 fun TransactionCard(transaction: Transaction) {
-    Surface(color = Color.LightGray,
+    Surface(
         shape = RoundedCornerShape(12.dp),
+        shadowElevation = 4.dp,
         modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 18.dp)) {
@@ -36,7 +37,7 @@ fun TransactionCard(transaction: Transaction) {
                     .fillMaxWidth()
                     .padding(24.dp)
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
 
                 Surface(shape = RoundedCornerShape(15.dp), color =
                 if (transaction.type == "Income") Color.Green.copy(alpha = 0.4f) else Color.Red.copy(

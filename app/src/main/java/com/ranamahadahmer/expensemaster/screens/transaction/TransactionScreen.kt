@@ -1,4 +1,4 @@
-package com.ranamahadahmer.expensemaster.screens.main
+package com.ranamahadahmer.expensemaster.screens.transaction
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +16,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.sharp.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
@@ -25,15 +27,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ranamahadahmer.expensemaster.data.listOfTransaction
 import com.ranamahadahmer.expensemaster.screens.main.components.Summary
-import com.ranamahadahmer.expensemaster.screens.main.components.TopAppBar
 import com.ranamahadahmer.expensemaster.screens.main.components.TransactionCard
+import com.ranamahadahmer.expensemaster.screens.transaction.components.TransactionDetailCard
 
 @Composable
-fun MainScreen() {
+fun TransactionScreen() {
 
 
     val x = Brush.verticalGradient(colors = listOf(Color.Yellow.copy(alpha = 0.3f),
@@ -44,7 +48,15 @@ fun MainScreen() {
         modifier = Modifier
                 .fillMaxSize()
                 .windowInsetsPadding(WindowInsets.statusBars),
-        topBar = { TopAppBar() },
+        topBar = {
+            Row(modifier = Modifier
+                    .height(64.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically) {
+                Text("Transactions", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+            }
+        },
         bottomBar = {
 
             NavigationBar(
@@ -70,19 +82,12 @@ fun MainScreen() {
                     .background(x)
                     .padding(innerPadding)
                     .padding(horizontal = 12.dp)) {
-            Summary(modifier = Modifier
-                    .weight(0.5f))
-            Spacer(modifier = Modifier.height(12.dp))
-            Text("Recent Transactions")
-
-            Spacer(modifier = Modifier.height(12.dp))
-
             Column(modifier = Modifier
                     .weight(0.8f)
                     .verticalScroll(rememberScrollState())
             ) {
                 for (transaction in listOfTransaction) {
-                    TransactionCard(transaction)
+                    TransactionDetailCard(transaction)
                 }
             }
         }
@@ -92,6 +97,6 @@ fun MainScreen() {
 
 @Composable
 @Preview
-fun MainScreenPreview() {
-    MainScreen()
+fun TransactionScreenPreview() {
+    TransactionScreen()
 }
