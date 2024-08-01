@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ranamahadahmer.expensemaster.screens.add_transaction.AddTransaction
+import com.ranamahadahmer.expensemaster.screens.add_transaction.AddTransactionModel
 import com.ranamahadahmer.expensemaster.screens.home.HomeScreen
 import com.ranamahadahmer.expensemaster.screens.transactions.TransactionsScreen
 import com.ranamahadahmer.expensemaster.ui.theme.ExpenseMasterTheme

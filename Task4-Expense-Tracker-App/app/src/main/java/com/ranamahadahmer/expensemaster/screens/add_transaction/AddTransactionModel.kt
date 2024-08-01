@@ -1,5 +1,6 @@
 package com.ranamahadahmer.expensemaster.screens.add_transaction
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,8 +17,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -25,7 +24,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,18 +41,20 @@ import com.ranamahadahmer.expensemaster.screens.add_transaction.components.NewTr
 import com.ranamahadahmer.expensemaster.ui.theme.bgGradient
 import java.time.LocalDate
 
+
+data object AddTransactionModel{
+    val title =  mutableStateOf("")
+    val amount =  mutableStateOf("")
+    val categoryExpanded =  mutableStateOf(false)
+    val categorySelected =  mutableStateOf("Category")
+    val typeExpanded =  mutableStateOf(false)
+    val typeSelected =  mutableStateOf("Type")
+}
+
 @Composable
 fun AddTransaction(
     moveToHome: () -> Unit,
     moveToTransactions: () -> Unit) {
-
-
-    val title = remember { mutableStateOf("") }
-    val amount = remember { mutableStateOf("") }
-    val categoryExpanded = remember { mutableStateOf(false) }
-    val categorySelected = remember { mutableStateOf("Category") }
-    val typeExpanded = remember { mutableStateOf(false) }
-    val typeSelected = remember { mutableStateOf("Type") }
 
 
     Scaffold(
@@ -103,9 +103,9 @@ fun AddTransaction(
                     .padding(horizontal = 12.dp)) {
             NewTransactionInputField(
                 text = "Amount",
-                value = amount,
+                value = AddTransactionModel.amount,
                 onValueChange = {
-                    amount.value = (it.toIntOrNull() ?: "").toString()
+                    AddTransactionModel.amount.value = (it.toIntOrNull() ?: "").toString()
 
                 },
                 keyboard = KeyboardOptions(keyboardType = KeyboardType.Number)
@@ -114,8 +114,8 @@ fun AddTransaction(
             Spacer(modifier = Modifier.height(12.dp))
             NewTransactionInputField(
                 text = "Title",
-                value = title,
-                onValueChange = { title.value = it }
+                value = AddTransactionModel.title,
+                onValueChange = { AddTransactionModel.title.value = it }
             )
             Spacer(modifier = Modifier.height(12.dp))
             Row(
@@ -124,11 +124,11 @@ fun AddTransaction(
                 NewTransactionDropDown(modifier = Modifier
                         .weight(1.0f)
                         .clickable {
-                            categoryExpanded.value = !categoryExpanded.value
+                            AddTransactionModel.categoryExpanded.value = !AddTransactionModel.categoryExpanded.value
                         },
                     options = listOf("Cash", "Online"),
-                    itemSelected = categorySelected,
-                    menuExpanded = categoryExpanded
+                    itemSelected = AddTransactionModel.categorySelected,
+                    menuExpanded = AddTransactionModel.categoryExpanded
                 )
                 Spacer(modifier = Modifier
                         .width(0.dp)
@@ -138,25 +138,24 @@ fun AddTransaction(
                 NewTransactionDropDown(modifier = Modifier
                         .weight(1.0f)
                         .clickable {
-
-                            typeExpanded.value = !typeExpanded.value
+                            AddTransactionModel.typeExpanded.value = !AddTransactionModel.typeExpanded.value
                         },
                     options = listOf("Expense", "Income"),
-                    itemSelected = typeSelected,
-                    menuExpanded = typeExpanded
+                    itemSelected = AddTransactionModel.typeSelected,
+                    menuExpanded = AddTransactionModel.typeExpanded
                 )
             }
             Spacer(modifier = Modifier.height(12.dp))
             Button(
                 shape = RoundedCornerShape(24),
                 onClick = {
-                    if (title.value.isNotEmpty() && amount.value.isNotEmpty() && categorySelected.value != "Category" && typeSelected.value != "Type") {
+                    if (AddTransactionModel.title.value.isNotEmpty() && AddTransactionModel.amount.value.isNotEmpty() && AddTransactionModel.categorySelected.value != "Category" && AddTransactionModel.typeSelected.value != "Type") {
                         listOfTransaction.add(Transaction(listOfTransaction.size + 1,
-                            title.value,
-                            amount.value.toDouble(),
+                            AddTransactionModel.title.value,
+                            AddTransactionModel.amount.value.toDouble(),
                             LocalDate.now(),
-                            categorySelected.value,
-                            typeSelected.value))
+                            AddTransactionModel.categorySelected.value,
+                            AddTransactionModel.typeSelected.value))
                         moveToHome()
                     }
                 }) {

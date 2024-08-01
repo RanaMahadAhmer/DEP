@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,7 +28,7 @@ fun MonetaryCard(icon: ImageVector,
                  color: Color,
                  modifier: Modifier) {
     Surface(
-        color = color, shape = RoundedCornerShape(16),
+        color = color, shape = MaterialTheme.shapes.small,
         modifier = modifier, onClick = {}) {
         Row(modifier = Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             Icon(icon, contentDescription = "", modifier = Modifier.size(30.dp))
